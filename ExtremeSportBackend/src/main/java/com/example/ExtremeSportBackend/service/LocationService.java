@@ -1,12 +1,15 @@
 package com.example.ExtremeSportBackend.service;
 
 import com.example.ExtremeSportBackend.dao.LocationDao;
+import com.example.ExtremeSportBackend.model.ExtremeSports;
 import com.example.ExtremeSportBackend.model.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class LocationService {
@@ -25,7 +28,19 @@ public class LocationService {
         return locationDao.getAllLocations();
     }
 
-    public List<Location> getLocationBySport(String extremeSport) {
-        return locationDao.getLocationBySport(extremeSport);
+    public List<Location> getLocationBySport(String sport) {
+        return locationDao.getLocationBySport(sport);
+    }
+
+    public Optional<Location> getLocationById(UUID id) {
+        return locationDao.getLocationById(id);
+    }
+
+    public int deleteLocationById(UUID id) {
+        return locationDao.deleteLocationById(id);
+    }
+
+    public int updateLocation(UUID id, Location location) {
+        return locationDao.updateLocationById(id, location);
     }
 }
