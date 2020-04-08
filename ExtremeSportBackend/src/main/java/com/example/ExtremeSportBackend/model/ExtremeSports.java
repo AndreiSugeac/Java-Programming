@@ -5,15 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.Objects;
 
-public class ExtremeSports {
+public class ExtremeSports implements Cloneable{
     private String sportName;
-    private Date periodOfYear;
+    private Date startPeriod;
+    private Date endPeriod;
     private int costPerDay;
+    private int estimatedCost;
 
-    public ExtremeSports(@JsonProperty("sport") String sportName, @JsonProperty("period") Date periodOfYear,
-                         @JsonProperty("cost") int costPerDay) {
+    public ExtremeSports(@JsonProperty("sport") String sportName, @JsonProperty("start") Date startPeriod,
+                         @JsonProperty("end") Date endPeriod, @JsonProperty("cost") int costPerDay) {
         this.sportName = sportName;
-        this.periodOfYear = periodOfYear;
+        this.startPeriod = startPeriod;
+        this.endPeriod = endPeriod;
         this.costPerDay = costPerDay;
     }
 
@@ -25,12 +28,20 @@ public class ExtremeSports {
         this.sportName = sportName;
     }
 
-    public Date getPeriodOfYear() {
-        return periodOfYear;
+    public Date getStartPeriod() {
+        return startPeriod;
     }
 
-    public void setPeriodOfYear(Date periodOfYear) {
-        this.periodOfYear = periodOfYear;
+    public void setStartPeriod(Date startPeriod) {
+        this.startPeriod = startPeriod;
+    }
+
+    public Date getEndPeriod() {
+        return endPeriod;
+    }
+
+    public void setEndPeriod(Date endPeriod) {
+        this.endPeriod = endPeriod;
     }
 
     public int getCostPerDay() {
@@ -41,11 +52,20 @@ public class ExtremeSports {
         this.costPerDay = costPerDay;
     }
 
+    public int getEstimatedCost() {
+        return estimatedCost;
+    }
+
+    public void setEstimatedCost(int estimatedCost) {
+        this.estimatedCost = estimatedCost;
+    }
+
     @Override
     public String toString() {
         return "ExtremeSports{" +
                 "sportName='" + sportName + '\'' +
-                ", periodOfYear='" + periodOfYear + '\'' +
+                ", startPeriod=" + startPeriod +
+                ", endPeriod=" + endPeriod +
                 ", costPerDay=" + costPerDay +
                 '}';
     }
@@ -56,12 +76,18 @@ public class ExtremeSports {
         if (o == null || getClass() != o.getClass()) return false;
         ExtremeSports that = (ExtremeSports) o;
         return costPerDay == that.costPerDay &&
-                Objects.equals(sportName, that.sportName) &&
-                Objects.equals(periodOfYear, that.periodOfYear);
+                sportName.equals(that.sportName) &&
+                startPeriod.equals(that.startPeriod) &&
+                endPeriod.equals(that.endPeriod);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sportName, periodOfYear, costPerDay);
+        return Objects.hash(sportName, startPeriod, endPeriod, costPerDay);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

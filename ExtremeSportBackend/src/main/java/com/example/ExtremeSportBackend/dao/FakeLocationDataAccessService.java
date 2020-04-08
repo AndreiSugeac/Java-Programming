@@ -1,13 +1,13 @@
 package com.example.ExtremeSportBackend.dao;
 
+import com.example.ExtremeSportBackend.model.ClientRequest;
 import com.example.ExtremeSportBackend.model.ExtremeSports;
 import com.example.ExtremeSportBackend.model.Location;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.Duration;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Repository("fakeDAO")
@@ -33,6 +33,48 @@ public class FakeLocationDataAccessService implements LocationDao{
                 filter(loc -> loc.getExtremeSport().stream().anyMatch
                                                     (sp -> sp.getSportName().equals(sport))).
                                                     collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Location> getLocationsForClient(ClientRequest client) throws CloneNotSupportedException {
+        List<Location> temp = new ArrayList<>();
+        int flag = 1;
+        for(Location location: DB) {
+            Location loc = location.clone();
+            System.out.println("locatia e " + loc.toString());
+            flag = 1;
+            for(String sp: client.getSports()) {
+                System.out.println("Avem sportul: "+ sp);
+                int flagSp = 0;
+                for(ExtremeSports extremeSports: loc.getExtremeSport()) {
+                    System.out.println("Astea sunt sporturile gasite: " + extremeSports.toString());
+                    if(extremeSports.getSportName().equals(sp) && client.getStart().after(extremeSports.getStartPeriod()) &&
+                       client.getStart().before(extremeSports.getEndPeriod()) && client.getEnd().after(extremeSports.getStartPeriod()) &&
+                       client.getEnd().before(extremeSports.getEndPeriod())) {
+                        flagSp = 1;
+                        long diffInMillies = Math.abs(client.getEnd().getTime() - client.getStart().getTime());
+                        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                        System.out.println("Match");
+                        extremeSports.setEstimatedCost((int)(diff) * extremeSports.getCostPerDay());
+                        break;
+                    }
+                }
+                if(flagSp == 0) {
+                    flag = 0;
+                    break;
+                }
+            }
+            if(flag == 1) {
+                System.out.println("Am gasit o locatie");
+                temp.add(loc);
+            }
+        }
+
+        return temp;
+
+        /*return DB.stream().
+                filter(location -> location.getExtremeSport().stream().
+                        anyMatch(extremeSports -> extremeSports.getSportName().equals(client.getSports().)))*/
     }
 
     @Override

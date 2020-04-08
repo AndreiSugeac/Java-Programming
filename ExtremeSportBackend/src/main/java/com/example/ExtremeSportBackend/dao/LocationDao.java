@@ -1,6 +1,6 @@
 package com.example.ExtremeSportBackend.dao;
 
-import com.example.ExtremeSportBackend.model.ExtremeSports;
+import com.example.ExtremeSportBackend.model.ClientRequest;
 import com.example.ExtremeSportBackend.model.Location;
 
 import java.util.List;
@@ -19,6 +19,8 @@ public interface LocationDao {
     List<Location> getAllLocations();
 
     List<Location> getLocationBySport(String sport);
+
+    List<Location> getLocationsForClient(ClientRequest client) throws CloneNotSupportedException;
 
     Optional<Location> getLocationById(UUID id);
 

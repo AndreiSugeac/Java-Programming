@@ -1,6 +1,6 @@
 package com.example.ExtremeSportBackend.API;
 
-import com.example.ExtremeSportBackend.model.ExtremeSports;
+import com.example.ExtremeSportBackend.model.ClientRequest;
 import com.example.ExtremeSportBackend.model.Location;
 import com.example.ExtremeSportBackend.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -44,6 +41,12 @@ public class LocationController {
     @GetMapping(path = "{id}")
     public Optional<Location> getLocationById(@PathVariable("id")UUID id) {
         return locationService.getLocationById(id);
+    }
+
+    @GetMapping(path = "Client")
+    public List<Location> getLocationForClient(@Valid @NonNull @RequestBody ClientRequest client) throws CloneNotSupportedException {
+        System.out.println(client.toString());
+        return locationService.getLocationForClient(client);
     }
 
     @DeleteMapping(path = "{id}")

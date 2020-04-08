@@ -1,7 +1,7 @@
 package com.example.ExtremeSportBackend.service;
 
 import com.example.ExtremeSportBackend.dao.LocationDao;
-import com.example.ExtremeSportBackend.model.ExtremeSports;
+import com.example.ExtremeSportBackend.model.ClientRequest;
 import com.example.ExtremeSportBackend.model.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +30,10 @@ public class LocationService {
 
     public List<Location> getLocationBySport(String sport) {
         return locationDao.getLocationBySport(sport);
+    }
+
+    public List<Location> getLocationForClient(ClientRequest client) throws CloneNotSupportedException {
+        return locationDao.getLocationsForClient(client);
     }
 
     public Optional<Location> getLocationById(UUID id) {
