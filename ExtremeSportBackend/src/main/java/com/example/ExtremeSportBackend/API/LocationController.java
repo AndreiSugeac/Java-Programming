@@ -1,8 +1,10 @@
 package com.example.ExtremeSportBackend.API;
 
 import com.example.ExtremeSportBackend.model.ClientRequest;
+import com.example.ExtremeSportBackend.model.ClientResponse;
 import com.example.ExtremeSportBackend.model.Location;
 import com.example.ExtremeSportBackend.service.LocationService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +45,23 @@ public class LocationController {
         return locationService.getLocationById(id);
     }
 
+    @GetMapping(path = "City/{city}")
+    public List<Location> getLocationByCity(@PathVariable("city") String city) {
+        return locationService.getLocationByCity(city);
+    }
+
+    @GetMapping(path = "Region/{region}")
+    public List<Location> getLocationByRegion(@PathVariable("region") String region) {
+        return locationService.getLocationByRegion(region);
+    }
+
+    @GetMapping(path = "Country/{country}")
+    public List<Location> getLocationByCountry(@PathVariable("country") String country) {
+        return locationService.getLocationByCountry(country);
+    }
+
     @GetMapping(path = "Client")
-    public List<Location> getLocationForClient(@Valid @NonNull @RequestBody ClientRequest client) throws CloneNotSupportedException {
-        System.out.println(client.toString());
+    public List<ClientResponse> getLocationForClient(@Valid @NonNull @RequestBody ClientRequest client) {
         return locationService.getLocationForClient(client);
     }
 

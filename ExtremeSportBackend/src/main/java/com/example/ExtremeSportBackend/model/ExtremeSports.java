@@ -10,7 +10,6 @@ public class ExtremeSports implements Cloneable{
     private Date startPeriod;
     private Date endPeriod;
     private int costPerDay;
-    private int estimatedCost;
 
     public ExtremeSports(@JsonProperty("sport") String sportName, @JsonProperty("start") Date startPeriod,
                          @JsonProperty("end") Date endPeriod, @JsonProperty("cost") int costPerDay) {
@@ -50,14 +49,6 @@ public class ExtremeSports implements Cloneable{
 
     public void setCostPerDay(int costPerDay) {
         this.costPerDay = costPerDay;
-    }
-
-    public int getEstimatedCost() {
-        return estimatedCost;
-    }
-
-    public void setEstimatedCost(int estimatedCost) {
-        this.estimatedCost = estimatedCost;
     }
 
     @Override

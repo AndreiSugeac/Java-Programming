@@ -9,18 +9,26 @@ import java.util.UUID;
 
 public class Location extends City implements Cloneable{
 
+    private String name;
     UUID locationId;
     private List<ExtremeSports> extremeSport;
 
-    public Location(@JsonProperty("extremeSport")  List<ExtremeSports> extremeSport, @JsonProperty("city") String cityName,
+    public Location(@JsonProperty("locationName") String name, @JsonProperty("extremeSport")  List<ExtremeSports> extremeSport, @JsonProperty("city") String cityName,
                     @JsonProperty("region") String regionName, @JsonProperty("country") String countryName,
                     @JsonProperty("id") UUID id) {
         super(cityName, regionName, countryName);
+        this.name = name;
         this.extremeSport = extremeSport;
         this.locationId = id;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public List<ExtremeSports> getExtremeSport() {
         return extremeSport;
