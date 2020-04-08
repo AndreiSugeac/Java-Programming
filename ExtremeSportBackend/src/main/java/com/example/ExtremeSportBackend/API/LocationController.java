@@ -35,12 +35,12 @@ public class LocationController {
         return locationService.getLocations();
     }
 
-    @GetMapping(path = "{sport}")
+    @GetMapping(path = "Sport/{sport}")
     public List<Location> getLocationBySport(@PathVariable("sport") String sport) {
         return locationService.getLocationBySport(sport);
     }
 
-    @GetMapping(path = "{id}")
+    @GetMapping(path = "ID/{id}")
     public Optional<Location> getLocationById(@PathVariable("id")UUID id) {
         return locationService.getLocationById(id);
     }
