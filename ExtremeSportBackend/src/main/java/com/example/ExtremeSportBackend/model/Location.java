@@ -1,24 +1,36 @@
 package com.example.ExtremeSportBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
 public class Location extends City implements Cloneable{
 
-    private String name;
-    UUID locationId;
-    private List<ExtremeSports> extremeSport;
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID locationId;
 
-    public Location(@JsonProperty("locationName") String name, @JsonProperty("extremeSport")  List<ExtremeSports> extremeSport, @JsonProperty("city") String cityName,
+    private String name;
+
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "location", orphanRemoval = true)
+    private List<ExtremeSports> extremeSport = new ArrayList<>();*/
+
+    public Location(@JsonProperty("locationName") String name, @JsonProperty("city") String cityName,
                     @JsonProperty("region") String regionName, @JsonProperty("country") String countryName,
                     @JsonProperty("id") UUID id) {
         super(cityName, regionName, countryName);
         this.name = name;
-        this.extremeSport = extremeSport;
         this.locationId = id;
     }
 
@@ -30,9 +42,13 @@ public class Location extends City implements Cloneable{
         this.name = name;
     }
 
-    public List<ExtremeSports> getExtremeSport() {
+    /*public List<ExtremeSports> getExtremeSport() {
         return extremeSport;
     }
+
+    public void setExtremeSport(List<ExtremeSports> extremeSport) {
+        this.extremeSport = extremeSport;
+    }*/
 
     public UUID getLocationId() {
         return locationId;
@@ -46,5 +62,13 @@ public class Location extends City implements Cloneable{
     public Location clone() throws CloneNotSupportedException {
         Location location =  (Location) super.clone();
         return location;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{\n" +
+                ", name='" + name + '\'' +
+                "locationId=" + locationId +
+                '}';
     }
 }

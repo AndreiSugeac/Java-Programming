@@ -1,4 +1,4 @@
-package com.example.ExtremeSportBackend.dao;
+/*package com.example.ExtremeSportBackend.dao;
 
 import com.example.ExtremeSportBackend.model.*;
 import org.springframework.stereotype.Repository;
@@ -111,3 +111,4 @@ public class FakeLocationDataAccessService implements LocationDao{
         }).orElse(0);
     }
 }
+*/

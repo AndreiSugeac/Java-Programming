@@ -17,7 +17,7 @@ public class LocationService {
     private final LocationDao locationDao;
 
     @Autowired
-    public LocationService(@Qualifier("fakeDAO") LocationDao locationDao) {
+    public LocationService(@Qualifier("postgres") LocationDao locationDao) {
         this.locationDao = locationDao;
     }
 
