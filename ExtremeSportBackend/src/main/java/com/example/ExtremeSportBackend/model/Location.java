@@ -2,8 +2,10 @@ package com.example.ExtremeSportBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,15 +25,24 @@ public class Location extends City implements Cloneable{
 
     private String name;
 
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "location", orphanRemoval = true)
-    private List<ExtremeSports> extremeSport = new ArrayList<>();*/
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location", orphanRemoval = true)
+    private List<ExtremeSports> extremeSport = new ArrayList<>();
 
-    public Location(@JsonProperty("locationName") String name, @JsonProperty("city") String cityName,
-                    @JsonProperty("region") String regionName, @JsonProperty("country") String countryName,
-                    @JsonProperty("id") UUID id) {
+    public Location(@JsonProperty("locationName") @Valid @NonNull String name, @JsonProperty("city") @Valid @NonNull String cityName,
+                    @JsonProperty("region") @Valid @NonNull String regionName, @JsonProperty("country") @Valid @NonNull String countryName,
+                    @JsonProperty("id") @Valid @NonNull UUID id) {
         super(cityName, regionName, countryName);
         this.name = name;
         this.locationId = id;
+    }
+
+    public Location(@JsonProperty("locationName") @Valid @NonNull String name, @JsonProperty("city") @Valid @NonNull String cityName,
+                    @JsonProperty("region") @Valid @NonNull String regionName, @JsonProperty("country") @Valid @NonNull String countryName,
+                    @JsonProperty("id") @Valid @NonNull UUID id, @JsonProperty("extremeSports") List<ExtremeSports> sports) {
+        super(cityName, regionName, countryName);
+        this.name = name;
+        this.locationId = id;
+        this.extremeSport = sports;
     }
 
     public String getName() {
@@ -42,13 +53,13 @@ public class Location extends City implements Cloneable{
         this.name = name;
     }
 
-    /*public List<ExtremeSports> getExtremeSport() {
+    public List<ExtremeSports> getExtremeSport() {
         return extremeSport;
     }
 
     public void setExtremeSport(List<ExtremeSports> extremeSport) {
         this.extremeSport = extremeSport;
-    }*/
+    }
 
     public UUID getLocationId() {
         return locationId;

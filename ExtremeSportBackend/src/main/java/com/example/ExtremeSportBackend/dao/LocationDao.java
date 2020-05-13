@@ -3,6 +3,7 @@ package com.example.ExtremeSportBackend.dao;
 import com.example.ExtremeSportBackend.model.ClientRequest;
 import com.example.ExtremeSportBackend.model.ClientResponse;
 import com.example.ExtremeSportBackend.model.Location;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 import java.util.Optional;

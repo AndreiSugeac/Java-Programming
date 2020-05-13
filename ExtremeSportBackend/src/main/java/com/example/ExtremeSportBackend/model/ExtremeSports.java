@@ -25,8 +25,28 @@ public class ExtremeSports implements Cloneable{
     private int costPerDay;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id", nullable = false)
     private Location location;
+
+    public ExtremeSports(UUID sportId, String sportName, Date startPeriod, Date endPeriod, int costPerDay) {
+        this.sportId = sportId;
+        this.sportName = sportName;
+        this.startPeriod = startPeriod;
+        this.endPeriod = endPeriod;
+        this.costPerDay = costPerDay;
+    }
+
+    public UUID getSportId() {
+        return sportId;
+    }
+
+    public void setSportId(UUID sportId) {
+        this.sportId = sportId;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
 
     public void setLocation(Location location) {
         this.location = location;
@@ -94,4 +114,6 @@ public class ExtremeSports implements Cloneable{
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
+
 }
